@@ -1,4 +1,4 @@
-This is a coding assignment for Waterfield Technologies
+This is a coding assignment from Aric Hylton
 ---------------------------------------------------------
 
 Final code is in test.js. Just use the script 'npm test' to run the mocha unit tests.
@@ -7,6 +7,5 @@ Final code is in test.js. Just use the script 'npm test' to run the mocha unit t
 
 
 ---------------------------------------------------------
-Thank you for your time,
 
-Aric Hylton
+❤ Thank you for your time ❤
