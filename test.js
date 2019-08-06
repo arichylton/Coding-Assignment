@@ -4,8 +4,8 @@ const assert = require('assert');
 // ------------------------------------------------------------------------------------------------------------- //
 
 const checkPhoneNumber = (vanityStr) => {
-    // checks to see if vanityStr is a string
-    if (typeof vanityStr !== 'string') return 'Please put in a string value'
+	// checking to see if vanityStr is a string
+	if (typeof vanityStr !== 'string') return 'Please put in a string value';
 
 	// Key codes to be converted into their desired numbers
 	const keyCodes = [
@@ -20,43 +20,30 @@ const checkPhoneNumber = (vanityStr) => {
 		[ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
 	];
 
+	// creating a new array by mapping splitting vanityStr and then mapping over it
 	let numStr = vanityStr
 		.split('')
 		.map((letter) => {
-			for (let i = 0; i < keyCodes.length; i++) {
-				if (keyCodes[i].includes(letter.toUpperCase())) {
-					switch (i) {
-						case 0:
-							letter = '2';
-							break;
-						case 1:
-							letter = '3';
-							break;
-						case 2:
-							letter = '4';
-							break;
-						case 3:
-							letter = '5';
-							break;
-						case 4:
-							letter = '6';
-							break;
-						case 5:
-							letter = '7';
-							break;
-						case 6:
-							letter = '8';
-							break;
-						case 7:
-							letter = '9';
-							break;
-					}
+
+			// creating another array and returning values based array.some conditions
+			let mappedCodes = keyCodes.map((el, index) => {
+				// If the current array contains this letter, then it will return the letter. This condition just makes sure the letters '0-9' stay the same.
+				if (el.some(element => element === letter)) {
 					return letter;
 				}
-			}
+				// If the current array contains this letter.toUpperCase(), it will return the current index + 2. 
+				if (el.some((element) => element === letter.toUpperCase())) {
+					return index + 2;
+				}
+			});
+
+			// we return the joined array
+			return mappedCodes.join('');
 		})
+		// we join one last join to make it into a completed string
 		.join('');
 
+	// we check to see if the string length isn't equal to 10. If true, we give an error message. Else, we create a template literal and add the United states phone number code as a prefix.
 	return numStr.length !== 10 ? 'Incorrect amount of characters' : `+1${numStr}`;
 };
 
@@ -122,6 +109,7 @@ const checkIfWord = (str) => {
     // Filter through strArr to see if word exists using npm module 'check-word'
 	let isWordArr = strArr.filter((word) => words.check(word));
 
+	// If word.length exists than we return a template literal containing the joined words. Else, we return an error message
 	return isWordArr.length
 		? `List of english words: ${isWordArr.join(', ')}.`
 		: 'No words found with those characters!';

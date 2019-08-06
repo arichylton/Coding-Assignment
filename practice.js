@@ -5,7 +5,7 @@ const assert = require('assert');
 // SOLUTION 1
 // const checkPhoneNumber = (vanityStr) => {
 
-//     console.time('hey')
+//     console.time('checkPhoneNumber')
 
 //     let numberCodesStr = '22233344455566677778889999';
 
@@ -32,13 +32,71 @@ const assert = require('assert');
 // console.log(test2); // output: Incorrect amount of characters
 // console.log(test3); // output: +15435989477
 
-// console.timeEnd('hey');
+// console.timeEnd('checkPhoneNumber');
 
-// SOLUTION 
+// SOLUTION
+// const checkPhoneNumber = (vanityStr) => {
+// 	console.time('checkPhoneNumber');
+
+//     if (typeof vanityStr !== 'string') return 'Please put in a string value'
+
+// 	// Key codes to be converted into their desired numbers
+// 	const keyCodes = [
+// 		[ 'A', 'B', 'C' ],
+// 		[ 'D', 'E', 'F' ],
+// 		[ 'G', 'H', 'I' ],
+// 		[ 'J', 'K', 'L' ],
+// 		[ 'M', 'N', 'O' ],
+// 		[ 'P', 'Q', 'R', 'S' ],
+// 		[ 'T', 'U', 'V' ],
+// 		[ 'W', 'X', 'Y', 'Z' ],
+// 		[ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+// 	];
+
+// 	let numStr = vanityStr
+// 		.split('')
+// 		.map((letter) => {
+// 			for (let i = 0; i < keyCodes.length; i++) {
+// 				if (keyCodes[i].includes(letter.toUpperCase())) {
+// 					switch (i) {
+// 						case 0:
+// 							letter = '2';
+// 							break;
+// 						case 1:
+// 							letter = '3';
+// 							break;
+// 						case 2:
+// 							letter = '4';
+// 							break;
+// 						case 3:
+// 							letter = '5';
+// 							break;
+// 						case 4:
+// 							letter = '6';
+// 							break;
+// 						case 5:
+// 							letter = '7';
+// 							break;
+// 						case 6:
+// 							letter = '8';
+// 							break;
+// 						case 7:
+// 							letter = '9';
+// 							break;
+// 					}
+// 					return letter;
+// 				}
+// 			}
+// 		})
+// 		.join('');
+
+// 	return numStr.length !== 10 ? 'Incorrect amount of characters' : `+1${numStr}`;
+// };
+
 const checkPhoneNumber = (vanityStr) => {
-	console.time('hey');
+	console.time('checkPhoneNumber');
 
-    if (typeof vanityStr !== 'string') return 'Please put in a string value'
+	if (typeof vanityStr !== 'string') return 'Please put in a string value';
 
 	// Key codes to be converted into their desired numbers
 	const keyCodes = [
@@ -56,44 +114,23 @@ const checkPhoneNumber = (vanityStr) => {
 	let numStr = vanityStr
 		.split('')
 		.map((letter) => {
-			for (let i = 0; i < keyCodes.length; i++) {
-				if (keyCodes[i].includes(letter.toUpperCase())) {
-					switch (i) {
-						case 0:
-							letter = '2';
-							break;
-						case 1:
-							letter = '3';
-							break;
-						case 2:
-							letter = '4';
-							break;
-						case 3:
-							letter = '5';
-							break;
-						case 4:
-							letter = '6';
-							break;
-						case 5:
-							letter = '7';
-							break;
-						case 6:
-							letter = '8';
-							break;
-						case 7:
-							letter = '9';
-							break;
-					}
+			let mappedCodes = keyCodes.map((el, index) => {
+				if (el.some(element => element === letter)) {
 					return letter;
 				}
-			}
+				if (el.some((element) => element === letter.toUpperCase())) {
+					return index + 2;
+				}
+			});
+
+			return mappedCodes.join('');
 		})
 		.join('');
 
 	return numStr.length !== 10 ? 'Incorrect amount of characters' : `+1${numStr}`;
 };
 
-const testStr1 = 0000;
+const testStr1 = '365-windows';
 const testStr2 = 'windows';
 const testStr3 = 'jhejwuz s34';
 
@@ -105,7 +142,7 @@ console.log(test1); // output: +13659463697
 console.log(test2); // output: Incorrect amount of characters
 console.log(test3); // output: +15435989477
 
-// console.timeEnd('hey');
+console.timeEnd('checkPhoneNumber');
 
 // console.log('--------------------------------------------');
 
@@ -117,11 +154,11 @@ const testVanity2 = '28- 79';
 const testVanity3 = '24';
 
 const vanitySuggestion = (digits) => {
-    // Check to see if digits.length is between 3 and 10
+	// Check to see if digits.length is between 3 and 10
 
 	if (digits.length < 3 || digits.length > 10) return null;
 
-    // Creating an object to use as a map to loop over
+	// Creating an object to use as a map to loop over
 	const map = {
 		'2': [ 'a', 'b', 'c' ],
 		'3': [ 'd', 'e', 'f' ],
@@ -166,7 +203,6 @@ const vanityStr3 = vanitySuggestion(testVanity3);
 // console.log(vanityStr2);
 // console.log(vanityStr3);
 
-
 // BONUS
 // ---------------------------------------------------------------- //
 
@@ -174,11 +210,10 @@ const checkWord = require('check-word');
 const words = checkWord('en');
 
 const checkIfWord = (str) => {
-
 	// Check if str exists, if so make it an array
 	let strArr = str ? str.split(' ') : [];
 
-    // Filter through strArr to see if word exists using npm module 'check-word'
+	// Filter through strArr to see if word exists using npm module 'check-word'
 	let isWordArr = strArr.filter((word) => words.check(word));
 
 	return isWordArr.length
