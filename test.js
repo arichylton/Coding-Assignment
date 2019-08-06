@@ -4,6 +4,9 @@ const assert = require('assert');
 // ------------------------------------------------------------------------------------------------------------- //
 
 const checkPhoneNumber = (vanityStr) => {
+    // checks to see if vanityStr is a string
+    if (typeof vanityStr !== 'string') return 'Please put in a string value'
+
 	// Key codes to be converted into their desired numbers
 	const keyCodes = [
 		[ 'A', 'B', 'C' ],
@@ -124,9 +127,11 @@ const checkIfWord = (str) => {
 		: 'No words found with those characters!';
 };
 
-// Testing results for all problems
+// TESTING RESULTS FOR ALL PROBLEMS
+// ------------------------------------------------------------------------------------------------------------- //
 
 describe('Coding Assignment', () => {
+    // TESTING PROBLEM 1
     describe('Problem 1', () => {
         it('should return corresponding valid E.164 format phone number', () => {
             assert.equal(checkPhoneNumber('365-windows'), '+13659463697');
@@ -137,11 +142,15 @@ describe('Coding Assignment', () => {
         it('should return incorrect number of characters', () => {
             assert.equal(checkPhoneNumber('windows'), 'Incorrect amount of characters');
         });
+        it('should return an error telling the user to use a string value', () => {
+            assert.equal(checkPhoneNumber(555), 'Please put in a string value');
+        });
     });
 
+    // TESTING PROBLEM 2
     describe('Problem 2', () => {
         it('should return string of permutable combinations', () => {
-            assert.equal(vanitySuggestion(testVanity1), 'atp atq atr ats aup auq aur aus avp avq avr avs btp btq btr bts bup buq bur bus bvp bvq bvr bvs ctp ctq ctr cts cup cuq cur cus cvp cvq cvr cvs');
+            assert.equal(vanitySuggestion('287'), 'atp atq atr ats aup auq aur aus avp avq avr avs btp btq btr bts bup buq bur bus bvp bvq bvr bvs ctp ctq ctr cts cup cuq cur cus cvp cvq cvr cvs');
         });
         it('should return string of permutable combinations', () => {
             assert.equal(vanitySuggestion('28- 79'), 'atpw atpx atpy atpz atqw atqx atqy atqz atrw atrx atry atrz atsw atsx atsy atsz aupw aupx aupy aupz auqw auqx auqy auqz aurw aurx aury aurz ausw ausx ausy ausz avpw avpx avpy avpz avqw avqx avqy avqz avrw avrx avry avrz avsw avsx avsy avsz btpw btpx btpy btpz btqw btqx btqy btqz btrw btrx btry btrz btsw btsx btsy btsz bupw bupx bupy bupz buqw buqx buqy buqz burw burx bury burz busw busx busy busz bvpw bvpx bvpy bvpz bvqw bvqx bvqy bvqz bvrw bvrx bvry bvrz bvsw bvsx bvsy bvsz ctpw ctpx ctpy ctpz ctqw ctqx ctqy ctqz ctrw ctrx ctry ctrz ctsw ctsx ctsy ctsz cupw cupx cupy cupz cuqw cuqx cuqy cuqz curw curx cury curz cusw cusx cusy cusz cvpw cvpx cvpy cvpz cvqw cvqx cvqy cvqz cvrw cvrx cvry cvrz cvsw cvsx cvsy cvsz');
@@ -154,6 +163,7 @@ describe('Coding Assignment', () => {
         });
     });
 
+    // TESTING BONUS
     describe('BONUS', () => {
         it('should return list of words that match vanity suggestions', () => {
             assert.equal(checkIfWord(vanityStr1), 'List of english words: ats, bur, bus, cup, cur.');

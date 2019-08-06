@@ -38,6 +38,8 @@ const assert = require('assert');
 const checkPhoneNumber = (vanityStr) => {
 	console.time('hey');
 
+    if (typeof vanityStr !== 'string') return 'Please put in a string value'
+
 	// Key codes to be converted into their desired numbers
 	const keyCodes = [
 		[ 'A', 'B', 'C' ],
@@ -91,7 +93,7 @@ const checkPhoneNumber = (vanityStr) => {
 	return numStr.length !== 10 ? 'Incorrect amount of characters' : `+1${numStr}`;
 };
 
-const testStr1 = '365-windows';
+const testStr1 = 0000;
 const testStr2 = 'windows';
 const testStr3 = 'jhejwuz s34';
 
@@ -99,9 +101,9 @@ let test1 = checkPhoneNumber(testStr1);
 let test2 = checkPhoneNumber(testStr2);
 let test3 = checkPhoneNumber(testStr3);
 
-// console.log(test1); // output: +13659463697
-// console.log(test2); // output: Incorrect amount of characters
-// console.log(test3); // output: +15435989477
+console.log(test1); // output: +13659463697
+console.log(test2); // output: Incorrect amount of characters
+console.log(test3); // output: +15435989477
 
 // console.timeEnd('hey');
 
